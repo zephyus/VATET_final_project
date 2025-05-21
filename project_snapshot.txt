@@ -1,0 +1,27 @@
+===== 1. System & Tool Versions =====
+- OS:
+Distributor ID:	Ubuntu
+Description:	Ubuntu 24.04.2 LTS
+Release:	24.04
+Codename:	noble
+- GCC/G++:
+gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+- CMake:
+cmake version 3.28.3
+- Python:
+/usr/bin/python3
+Python 3.12.3
+
+===== 2. SUMO Status =====
+SUMO_HOME=/home/jacky/sumo
+- sumo executable:
+-rwxrwxr-x 1 jacky jacky 12114176 May 21 00:57 /home/jacky/sumo/bin/sumo
+- sumo version:
+Eclipse SUMO sumo Version 1.20.0
+ Build features: Linux-6.11.0-25-generic x86_64 GNU 13.3.0 Release FMI Proj GUI Intl GDAL GL2PS
+- Python bindings:
+  File "<stdin>", line 1
+    try {
+        ^
+SyntaxError: expected ':'

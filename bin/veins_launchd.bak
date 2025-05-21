@@ -209,31 +209,17 @@ def run_sumo(runpath, sumo_command, shlex, config_file_name, remote_port, seed, 
 
         connected = False
         tries = 1
-        # ---- 開始修改區域 ----
-        # 1. 在首次嘗試連接前，加入一個固定的初始延遲
-        initial_startup_delay = 5  # 秒，您可以嘗試 3 到 5 秒
-        logging.info("Waiting %.1f seconds for SUMO to initialize before first connection attempt..." % initial_startup_delay)
-        time.sleep(initial_startup_delay)
-        # ---- 結束修改區域 ----
         while not connected:
             try:
-                # 在日誌中加入更清晰的嘗試次數信息
-                logging.info("Connecting to SUMO (%s) on port %d (Attempt %d of 10)" % (" ".join(cmd), remote_port, tries))
+                logging.debug("Connecting to SUMO (%s) on port %d (try %d)" % (" ".join(cmd), remote_port, tries))
                 sumo_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 sumo_socket.connect(('127.0.0.1', remote_port))
-                logging.info("Successfully connected to SUMO on port %d after %d attempt(s)." % (remote_port, tries))
-                break # 連接成功，跳出迴圈
+                break
             except socket.error as e:
                 logging.debug("Error (%s)" % e)
                 if tries >= 10:
                     raise
-                      
-                # ---- 開始修改區域 ----
-                # 2. 調整重試之間的延遲
-                retry_interval_delay = 3  # 秒，每次重試固定等待3秒 (替換原來的 tries * 0.25)
-                logging.info("Retrying in %.1f seconds..." % retry_interval_delay)
-                time.sleep(retry_interval_delay)
-                # ---- 結束修改區域 ----
+                time.sleep(tries * 0.25)
                 tries += 1
 
         unused_port_lock.release()
