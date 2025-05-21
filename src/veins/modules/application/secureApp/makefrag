@@ -1,0 +1,4 @@
+# 這個 makefrag 檔案告訴建置系統在這個目錄下有哪些 .cc 檔案需要編譯
+# 相對於 src/veins/modules/application/secureApp/ 這個目錄
+SRCS += SecureApp.cc
+
