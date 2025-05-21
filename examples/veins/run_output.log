@@ -1,0 +1,29 @@
+OMNeT++ Discrete Event Simulation  (C) 1992-2022 Andras Varga, OpenSim Ltd.
+Version: 6.0.3, build: 240223-17fcae5ef3, edition: Academic Public License -- NOT FOR COMMERCIAL USE
+See the license for distribution terms and warranty disclaimer
+
+Setting up Cmdenv...
+
+Loading NED files from ../../src/veins:  44
+Loading NED files from .:  1
+
+Preparing for running configuration Default, run #0...
+Assigned runID=Default-0-20250521-09:45:53-59019
+Setting up network "RSUExampleScenario"...
+
+[Warning: Program was compiled without debug info, you might not be able to debug.]
+
+RUNTIME ERROR. A cRuntimeError exception is about to be thrown, and you
+requested (by setting debug-on-errors=true in the ini file) that errors
+abort execution and break into the debugger.
+
+You should now probably be running the simulation under gdb or another
+debugger. The simulation kernel will now raise a SIGINT signal which will
+get you into the debugger. If you are not running under a debugger, you can
+still use the core dump for post-mortem debugging. Once in the debugger,
+view the call stack (in gdb: "bt" command) to see the context of the
+runtime error.
+
+<!> The simulation attempted to prompt for user input, set cmdenv-interactive=true to allow it: "Enter parameter 'RSUExampleScenario.manager.launchConfig' (unassigned):" -- in module (veins::TraCIScenarioManagerLaunchd) RSUExampleScenario.manager (id=6), during network setup
+
+TRAPPING on the exception above, due to a debug-on-errors=true configuration option. Is your debugger ready?

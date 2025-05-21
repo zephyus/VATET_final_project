@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+    <launcherd host="localhost" port="${port}" numRetries="5" seed="${seed}" />
+
+    <copy file="cross.net.xml"/>
+    <copy file="cross.rou.xml"/>
+    <copy file="cross.sumo.cfg" type="config"/>
+
+    <sumo cmd="sumo -c cross.sumo.cfg \
+                    --remote-port ${port} \
+                    --seed ${seed} \
+                    --step-length 0.1 \
+                    --time-to-teleport -1 \
+                    --quit-on-end=true"/>
+</launch>
+
