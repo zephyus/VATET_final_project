@@ -1,63 +1,52 @@
-#include "SecureApp.h" // 引入我們剛才定義的標頭檔
-#include "veins/modules/messages/BaseFrame1609_4_m.h" // 引入訊息定義 (例如 BSM)
-#include "veins/base/utils/SimpleLogger.h" // 引入日誌工具
+// SecureApp.cc
+#include "SecureApp.h"
+// 引入 controlInfo 介面定義
+#include "veins/modules/mac/ieee80211p/DemoBaseApplLayerToMac1609_4Interface.h"
 
 namespace veins {
-
-Define_Module(veins::SecureApp); // 讓 OMNeT++ 能夠識別這個模組
+Define_Module(SecureApp);
 
 void SecureApp::initialize(int stage) {
-    BaseWaveApplLayer::initialize(stage); // 呼叫父類別的 initialize
+    DemoBaseApplLayer::initialize(stage);
     if (stage == 0) {
-        // 您的初始化邏輯寫在這裡
-        // 例如：設定計時器、讀取參數等
-        EV_INFO << "[SecureApp] 初始化完成 (Initializing...)" << std::endl;
+        EV_INFO << "[SecureApp] 初始化完成" << std::endl;
     }
 }
 
 void SecureApp::finish() {
-    BaseWaveApplLayer::finish(); // 呼叫父類別的 finish
-    // 您的清理邏輯寫在這裡
-    EV_INFO << "[SecureApp] 模擬結束 (Finishing.)" << std::endl;
+    DemoBaseApplLayer::finish();
+    EV_INFO << "[SecureApp] 模擬結束" << std::endl;
 }
 
-void SecureApp::onWSM(BaseWaveShortMessage* wsm) {
-    // 處理收到的 WAVE Short Message (WSM)
+void SecureApp::onWSM(BaseFrame1609_4* wsm) {
+    // 1) 先交給父類處理（包含統計、delete wsm）
+    DemoBaseApplLayer::onWSM(wsm);
+
+    // 2) 從 controlInfo 取回 MAC 層傳遞過來的 sender address
+    auto macInterface = check_and_cast<
+        DemoBaseApplLayerToMac1609_4Interface*
+    >(wsm->getControlInfo());
+    LAddress::L2Type sender = macInterface->getMACAddress();
+
+    // 3) 日誌輸出
     EV_INFO << "[SecureApp] 收到 WSM: " << wsm->getName()
-            << " 從車輛: " << wsm->getSenderL2Address() << std::endl;
+            << " (類型: " << wsm->getClassName() << ")"
+            << " 來源車輛 MAC: " << sender
+            << std::endl;
 
-    // 在這裡加入您的安全檢查或訊息處理邏輯
-    // 例如: if (isMessageSecure(wsm)) { processValidMessage(wsm); }
+    // 4) 在此加入您的加密/驗證或其他自訂邏輯
+    //    例如： decryptAndVerify(wsm->getPayload(), sender);
 
-    delete wsm; // 處理完畢後記得刪除訊息以釋放記憶體
+    // 無需再手動 delete wsm（父類已處理）
 }
-
-/* // 若您在 .h 檔中取消註解 onWSA，也請取消此段註解
-void SecureApp::onWSA(WaveServiceAdvertisment* wsa) {
-    // 處理收到的 WAVE Service Advertisement (WSA)
-    EV_INFO << "[SecureApp] 收到 WSA: " << wsa->getName() << std::endl;
-    delete wsa;
-}
-*/
 
 void SecureApp::handleSelfMsg(cMessage* msg) {
-    // 處理排程給自己的訊息 (例如計時器觸發的事件)
     if (strcmp(msg->getName(), "sendBeaconTimer") == 0) {
-        // 假設您設定了一個叫做 "sendBeaconTimer" 的計時器
-        // 在這裡加入傳送 beacon 的邏輯
-        EV_INFO << "[SecureApp] 計時器觸發，準備傳送訊息..." << std::endl;
+        EV_INFO << "[SecureApp] Beacon Timer 觸發，準備傳送…" << std::endl;
+        // 範例： sendWSM(createBeacon());
     }
-    // 如果這個訊息不是 BaseWaveApplLayer 的標準訊息，處理完後要 delete
-    // BaseWaveApplLayer::handleSelfMsg(msg); // 如果父類別也需要處理某些自訂訊息
-    delete msg; // 如果是您自己建立並排程的訊息，通常需要刪除
+    delete msg;
 }
-
-/* // 若您在 .h 檔中取消註解 handlePositionUpdate，也請取消此段註解
-void SecureApp::handlePositionUpdate(cObject* obj) {
-    BaseWaveApplLayer::handlePositionUpdate(obj);
-    // 當車輛位置更新時觸發的動作
-    // 例如：根據新位置決定是否廣播訊息
-}
-*/
 
 } // namespace veins
+

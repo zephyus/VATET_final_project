@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from veins/modules/messages/AckTimeOutMessage.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from src/veins/modules/messages/AckTimeOutMessage.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:

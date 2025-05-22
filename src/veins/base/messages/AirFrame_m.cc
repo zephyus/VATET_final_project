@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from veins/base/messages/AirFrame.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from src/veins/base/messages/AirFrame.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:

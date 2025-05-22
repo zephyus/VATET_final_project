@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for $(LIB_PREFIX)veins
 #
 # This file was generated with the command:
-#  opp_makemake --make-so -f --deep -o veins -O out -pVEINS -I. -I.
+#  opp_makemake -f --deep --make-so -I . -o veins -O out -p VEINS
 #
 
 # Name of target to be created (-o option)
@@ -14,7 +14,7 @@ TARGET_IMPDEF = $(TARGET_NAME)$(IMPDEF_SUFFIX)
 TARGET_FILES = $(TARGET_DIR)/$(TARGET)
 
 # C++ include paths (with -I)
-INCLUDE_PATH = -I. -I.
+INCLUDE_PATH = -I.
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -65,6 +65,7 @@ OBJS = \
     $O/veins/modules/analogueModel/TwoRayInterferenceModel.o \
     $O/veins/modules/analogueModel/VehicleObstacleShadowing.o \
     $O/veins/modules/application/ieee80211p/DemoBaseApplLayer.o \
+    $O/veins/modules/application/secureApp/SecureApp.o \
     $O/veins/modules/application/traci/MyVeinsApp.o \
     $O/veins/modules/application/traci/TraCIDemo11p.o \
     $O/veins/modules/application/traci/TraCIDemoRSU11p.o \

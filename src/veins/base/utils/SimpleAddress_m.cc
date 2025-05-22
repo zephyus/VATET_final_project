@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from veins/base/utils/SimpleAddress.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from src/veins/base/utils/SimpleAddress.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
